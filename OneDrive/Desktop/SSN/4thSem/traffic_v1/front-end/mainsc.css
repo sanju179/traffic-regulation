@@ -1,0 +1,118 @@
+
+nav{
+    display: flex;
+}
+nav .menu-img{
+    margin-top: 5px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    
+}
+nav .text{
+    margin-left: 570px;
+    width: 550px;
+    cursor: pointer;
+}
+nav .text2{
+    margin-left: 1050px;
+    margin-top: -10px;
+    width: 850px;
+}
+nav ul{
+    position: relative;
+    margin-left: -40px;
+    
+}
+nav ul li{
+    display: inline-block;
+    margin: 26px;
+    margin-top: -10px;
+    margin-bottom: -10px;
+}
+body{
+    /*  */
+    background-color: #1D1D20;
+}
+h3, h2, h1, h4, h5, h6{
+    
+    color: white;
+    font-family: 'Inria Sans', sans-serif;
+    
+}
+h3 .title{
+    text-align: center;
+    
+}
+
+h4 .dash{
+    text-align: center;
+}
+
+.rect{
+    width: 100px;
+    display: flex;
+    margin-left: 630px;
+    margin-top: -10px;
+    height: 5px;
+    background-color: #38A478;
+    border-radius: 10px;
+    padding: 0;
+}
+.rect2{
+    width: 50px;
+    display: flex;
+    margin-left: 1064px;
+    margin-top: -15px;
+    height: 4px;
+    background-color: #38A478;
+    border-radius: 10px;
+    padding: 0;
+}
+
+
+/* CSS */
+.button {
+  background-color: #2C2B30;
+  border: 1px solid #38A478;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Inria Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  padding: 13px 23px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 300px;
+  margin-left: 940px;
+  margin-top: 10px;
+}
+
+.button-23:focus-visible {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+  transition: box-shadow .2s;
+}
+
+.button-23:active {
+  background-color: #F7F7F7;
+  border-color: #000000;
+  transform: scale(.96);
+}
+
+.button-23:disabled {
+  border-color: #DDDDDD;
+  color: #DDDDDD;
+  cursor: not-allowed;
+  opacity: 1;
+}
