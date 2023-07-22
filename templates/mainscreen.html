@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/mainsc.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@700&display=swap" rel="stylesheet">
+    <title>Main Screen</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').submit(function(event) {
+                event.preventDefault();
+                var start = $('#start').val();
+                var end = $('#end').val();
+                // Perform basic client-side validation
+                if (start.trim() === '' || end.trim() === '') {
+                    alert('Please enter both starting location and ending location');
+                    return;
+                }
+                // Check if the username consists of alphabets
+                if (!/^[a-zA-Z]+$/.test(start)) {
+                    alert('Invalid location. Please enter alphabets only.');
+                    return;
+                }
+                // Check if the password consists of numbers
+                if (!/^[a-zA-Z]+$/.test(end)) {
+                    alert('Invalid destination. Please enter alphabets only.');
+                    return;
+                }
+                // Send an AJAX request to the server
+                $.ajax({
+                        url: '/process_input',
+                        type: 'POST',
+                        data: { start: start, end: end },
+                        success: function(response) {
+                            // Handle the response from the server
+                            // Update the website with the output
+                            var image = document.getElementById("img");
+                            var newSrc = "{{ url_for('static', filename='graph_after_dijkstra.png') }}";
+                            setTimeout(function() {
+                                image.src = newSrc;
+                            }, 1000);
+
+                            $('#distance').text(response.distance);
+                            $('#path').text(response.path);
+                        },
+                        error: function() {
+                            // Handle errors, if any
+                            alert('An error occurred while processing the input');
+                        }
+                    });
+            });
+            $('#refreshButton').click(function() {
+                handleRefresh();
+                    });
+        function handleRefresh() {
+            window.location.reload(); // Reload the current page
+        }
+        });
+    </script>
+
+</head>
+<body>
+    <div class="click">
+    <div class="menu1"></div>
+    <div class="menu2"></div>
+    <div class="menu3"></div>
+</div>
+
+        <nav>
+            <h3 class="title"><nav class="text">Traffic Regulator</nav></h3>
+        </nav>
+        <div id="rect4">
+    
+        </div>
+        <div class="rect" style="margin-top: -10px;"></div>
+        
+        <nav>
+        <h4 class="dash"><nav class="text2">Dashboard</nav></h4>
+    </nav>
+   
+    <div class="rect2"></div>
+    <script>
+        function newdoc() {
+      window.location.href = "./graphwindow.html";
+        }
+        
+      </script>
+    <button class="button" role="button" onclick="newdoc()"v>Customise your Map</button>
+    <div>
+        <button id="refreshButton" style="margin-top: 300px; margin-left: 1015px;" class="button_half2" role="button">Refresh</button>
+    </div>
+    <form id="loginForm">
+        <div>
+            <label for="start" id="a1">Start:</label>
+            <input type="text" id="start">
+        </div>
+        <div>
+            <label for="end" id="b1">Reach:</label>
+            <input type="end" id="end">
+        </div>
+        
+        <div>
+            <button id="output" style="margin-top: 240px" class="button" onclick='changeImage(this);' role="button">Unlock Path</button>
+        </div>
+        
+    </form>
+
+    <div class="rect3">
+    <img id="img" class="one" src="{{ url_for('static', filename='../static/graph_before_dijkstra.png', _external=True) }}" alt="Graph_home" style="margin: 20px">  
+</div>
+
+<div id="rect5" style="left: 930px; width: 343px;">
+    <h5 style="position: absolute; color:#DFDFDF; margin-top: 15px; margin-left: 20px; font-weight: 700; font-size: 15px;">Distance:</h5>
+    <h1 style="position: absolute; color:#DFDFDF; margin-top: 15px; margin-left: 230px; font-weight: 700; font-size: 20px;" id="distance"></h1>
+    <h5 style="position: absolute; color:#DFDFDF; margin-top: 40px; margin-left: 20px; font-weight: 700; font-size: 15px;">Head to destination through:</h5>
+    <h3 style="position: absolute; color:#DFDFDF; margin-top: 65px; margin-left: 20px; font-weight: 700; font-size: 20px; white-space: normal;" id="path"></h3>
+</div>
+
+
+</body>
+</html>

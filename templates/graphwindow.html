@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../static/mainsc.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@700&display=swap" rel="stylesheet">
+        <title>Customize</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+        <script>
+            $(document).ready(function() {
+                $('#login').submit(function(event) {
+                    event.preventDefault();
+                    var frm = $('#frm').val();
+                    var to= $('#to').val();
+                    
+                    
+                    // Check if the To value consists of alphabets
+                    if (!/^[a-zA-Z]+$/.test(frm)) {
+                        alert('Invalid from value. Please enter proper location');
+                        return;
+                    }
+    
+                    // Check if the Distance consists of numbers
+                    if (!/^[a-zA-Z]+$/.test(to)) {
+                        alert('Invalid end value. Please enter proper location');
+                        return;
+                    }
+                   
+                    // Valid username and password entered
+                    alert('Edge with distance is inserted in a graph sucessfully');
+                    // Redirect to a different page or perform other actions
+                    $.ajax({
+                    url: '/add_edge',
+                    type: 'POST',
+                    data: { frm: frm, to: to },
+                    success: function(response) {
+                        // Handle the response from the server
+                        // Update the website with the output
+                        var image = document.getElementById("img");
+                        var newSrc = "{{ url_for('static', filename='graph_beforedijkstra.png') }}";
+                        setTimeout(function() {
+                            image.src = newSrc;
+                        }, 1000);
+                    },
+                    error: function() {
+                        // Handle errors, if any
+                        alert('An error occurred while processing the input');
+                    }
+                });
+                });
+            });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#loginForm').submit(function(event) {
+                    event.preventDefault();
+                    var nodename = $('#nodename').val();
+                    
+                    if (nodename.trim() ===''){
+                        alert('Please enter the name of location.')
+                    }
+                    
+                    if (!/^[a-zA-Z]+$/.test(nodename)) {
+                        alert('Invalid location. Please enter alphabets only.');
+                        return;
+                    }
+
+                    // Valid traffic speed entered
+                    alert('Node is inserted in a graph sucessfully ! ');
+                    // Redirect to a different page or perform other actions
+
+                    $.ajax({
+                    url: '/add_node',
+                    type: 'POST',
+                    data: { nodename: nodename},
+                    success: function(response) {
+                        // Handle the response from the server
+                        // Update the website with the output
+                        var image = document.getElementById("img");
+                        var newSrc = "{{ url_for('static', filename='graph_beforedijkstra.png') }}";
+                        setTimeout(function() {
+                            image.src = newSrc;
+                        }, 1000);
+                    },
+                    error: function() {
+                        // Handle errors, if any
+                        alert('An error occurred while processing the input');
+                    }
+                });
+                
+            });
+        });
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#resetmap').on('click', function(event) {
+                    event.preventDefault();
+                    // When reset button is clicked
+                    window.location.reload(); 
+                    $.ajax({
+                    url: '/resetmap',
+                    type: 'POST',
+                    success: function(response) {
+                        // Handle the response from the server
+                        // Update the website with the output
+                        var image = document.getElementById("img");
+                        var newSrc = "{{ url_for('static', filename='graph_beforedijkstra.png') }}";
+                        setTimeout(function() {
+                            image.src = newSrc;
+                        }, 1000);
+                    },
+                    error: function() {
+                        // Handle errors, if any
+                        alert('An error occurred while processing the input');
+                    }
+                });
+                
+            });
+        });
+        </script>
+    </head>
+<body>
+    <nav>
+        <a href="#" class="previous round" onclick="history.back()">&#8249;</a>
+        
+        <nav>
+            <h3 class="title"><nav class="text" style="margin-left: 622px">Sample Graph
+            </nav> 
+            <div class="rect"></div>
+        <form id="loginForm">
+
+            <div class="trafl"><h4>Node</h4></div>
+            
+            <div class="greenline" id="a"></div>
+            <h4 style="display: flexbox; position: fixed; margin-top: 90px; margin-left: 135px;">Name:</h4>
+            <input id="nodename" type="text" name="nodename">
+            <!-- <button  id="addnodebutton"class="button" role="button">Add node</button> -->
+            <div>
+                <button id="output" style= "width: 285px;margin-top: 190px;margin-left: 132px;" class="button" onclick='changeImage(this);' role="button">Add Node</button>
+            </div>
+        </form>
+      
+        <form id="login">
+            <div class="from"><h4>From</h4></div>
+            <div class="greenline" id="c"></div>
+            <input id="frm" name="frm">
+            <div class="to"><h4>To</h4></div>
+            <div class="greenline" id="d"></div>
+            <input id="to" name="to">
+            <!-- <button  id="addedgebutton"class="button" role="button">Add Edge</button> -->
+            <div>
+                <button id="output" style="width: 285px; margin-left: 132px; margin-top: 460px;" class="button" onclick='changeImage(this);' role="button">Add Edge</button>
+            </div>
+        </form> 
+       <!--  <script>
+            function newdoc() {
+                alert('The map is set to the previous state ! ');}</script> -->
+        <form id="resetmap">
+         <div class="button" id="output" style="width: 285px;
+         margin-left: 132px;
+         margin-top: 520px;" onclick='changeImage(this);' role="button">RESET</div>
+         </form>
+
+         <div class="rect3d">
+            <img style="position: relative; display: flexbox; justify-content: center; margin-left: 10px; margin-top: 20px;" src="{{ url_for('static', filename='../static/graph_before_dijkstra.png', _external=True) }}" alt="Graph_home" style="margin: 20px">
+        </div>
+    </body>
+</html>
+
+
+
